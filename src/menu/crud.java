@@ -11,9 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +28,7 @@ public class crud extends javax.swing.JFrame {
      */
     public crud() {
         initComponents();
+        table_update();
     }
 
     /**
@@ -208,7 +211,20 @@ public class crud extends javax.swing.JFrame {
             ResultSetMetaData Rss = rs.getMetaData();
             c = Rss.getColumnCount();
             
+            DefaultTableModel Df = (DefaultTableModel)jTable1.getModel();
+            Df.setRowCount(0);
             
+            while(rs.next()){
+                Vector v2 = new Vector();
+                for(int a=1; a<=c; a++){
+                    v2.add(rs.getString("id"));
+                    v2.add(rs.getString("nom"));
+                    v2.add(rs.getString("postnom"));
+                    v2.add(rs.getString("prenom"));
+                    v2.add(rs.getString("nationalite"));
+                }
+                Df.addRow(v2);
+            }
             
         }  catch (ClassNotFoundException ex) {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
@@ -233,6 +249,7 @@ public class crud extends javax.swing.JFrame {
             
             insert.executeUpdate();
             JOptionPane.showMessageDialog(this,"Enregistrement effectué");
+            table_update();
             
             txtnom.setText("");
             txtpostnom.setText("");
