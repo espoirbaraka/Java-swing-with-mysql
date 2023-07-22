@@ -8,6 +8,8 @@ package menu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -194,6 +196,26 @@ public class crud extends javax.swing.JFrame {
 
     Connection con1;
     PreparedStatement insert;
+    PreparedStatement select;
+    
+    private void table_update(){
+        int c;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
+            select = con1.prepareStatement("SELECT * FROM etudiant");
+            ResultSet rs=select.executeQuery();
+            ResultSetMetaData Rss = rs.getMetaData();
+            c = Rss.getColumnCount();
+            
+            
+            
+        }  catch (ClassNotFoundException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void btnajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnajouterActionPerformed
         String nom = txtnom.getText();
         String postnom = txtpostnom.getText();
@@ -216,6 +238,7 @@ public class crud extends javax.swing.JFrame {
             txtpostnom.setText("");
             txtprenom.setText("");
             txtnationalite.setText("");
+            txtnom.requestFocus();
         }  catch (ClassNotFoundException ex) {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
