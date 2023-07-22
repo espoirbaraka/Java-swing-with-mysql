@@ -211,6 +211,11 @@ public class crud extends javax.swing.JFrame {
             
             insert.executeUpdate();
             JOptionPane.showMessageDialog(this,"Enregistrement effectué");
+            
+            txtnom.setText("");
+            txtpostnom.setText("");
+            txtprenom.setText("");
+            txtnationalite.setText("");
         }  catch (ClassNotFoundException ex) {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
