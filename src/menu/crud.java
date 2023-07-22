@@ -6,10 +6,12 @@
 package menu;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -190,17 +192,26 @@ public class crud extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtprenomActionPerformed
 
+    Connection con1;
+    PreparedStatement insert;
     private void btnajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnajouterActionPerformed
         String nom = txtnom.getText();
         String postnom = txtpostnom.getText();
         String prenom = txtprenom.getText();
         String nationalite = txtnationalite.getText();
-        Connection con1;
-        PreparedStatement insert;
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
+            insert = con1.prepareStatement("INSERT INTO etudiant(nom,postnom,prenom,nationalite) VALUES(?,?,?,?)");
+            insert.setString(1, nom);
+            insert.setString(2, postnom);
+            insert.setString(3, prenom);
+            insert.setString(4, nationalite);
+            
+            insert.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Enregistrement effectué");
+        }  catch (ClassNotFoundException ex) {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
