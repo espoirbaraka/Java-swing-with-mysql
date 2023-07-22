@@ -92,6 +92,11 @@ public class crud extends javax.swing.JFrame {
         });
 
         jButton3.setText("Supprimer");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -293,16 +298,18 @@ public class crud extends javax.swing.JFrame {
             String postnom = txtpostnom.getText();
             String prenom = txtprenom.getText();
             String nationalite = txtnationalite.getText();
+            
             Class.forName("com.mysql.jdbc.Driver");
             con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
-            insert = con1.prepareStatement("INSERT INTO etudiant(nom,postnom,prenom,nationalite) VALUES(?,?,?,?)");
+            insert = con1.prepareStatement("UPDATE etudiant SET nom=?, postnom=?, prenom=?, nationalite=? WHERE id=?");
             insert.setString(1, nom);
             insert.setString(2, postnom);
             insert.setString(3, prenom);
             insert.setString(4, nationalite);
+            insert.setInt(5, id);
             
             insert.executeUpdate();
-            JOptionPane.showMessageDialog(this,"Enregistrement effectué");
+            JOptionPane.showMessageDialog(this,"Modification effectuée");
             table_update();
             
             txtnom.setText("");
@@ -317,6 +324,32 @@ public class crud extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        DefaultTableModel Df = (DefaultTableModel)jTable1.getModel();
+        int selectedItem = jTable1.getSelectedRow();
+        try {
+            int id = Integer.parseInt(Df.getValueAt(selectedItem, 0).toString());
+            
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer cette élément ?", "Warning",JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                Class.forName("com.mysql.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
+            insert = con1.prepareStatement("DELETE FROM etudiant WHERE id=?");
+            insert.setInt(1, id);
+            
+            insert.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Suppression effectuée");
+            table_update();
+            }
+            
+            
+        }  catch (ClassNotFoundException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
