@@ -85,6 +85,11 @@ public class crud extends javax.swing.JFrame {
         });
 
         jButton2.setText("Modifier");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Supprimer");
 
@@ -158,6 +163,11 @@ public class crud extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -262,6 +272,51 @@ public class crud extends javax.swing.JFrame {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnajouterActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        DefaultTableModel Df = (DefaultTableModel)jTable1.getModel();
+        int selectedItem = jTable1.getSelectedRow();
+        btnajouter.setEnabled(false);
+        
+        txtnom.setText(Df.getValueAt(selectedItem, 1).toString());
+        txtpostnom.setText(Df.getValueAt(selectedItem, 2).toString());
+        txtprenom.setText(Df.getValueAt(selectedItem, 3).toString());
+        txtnationalite.setText(Df.getValueAt(selectedItem, 4).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultTableModel Df = (DefaultTableModel)jTable1.getModel();
+        int selectedItem = jTable1.getSelectedRow();
+        try {
+            int id = Integer.parseInt(Df.getValueAt(selectedItem, 0).toString());
+            String nom = txtnom.getText();
+            String postnom = txtpostnom.getText();
+            String prenom = txtprenom.getText();
+            String nationalite = txtnationalite.getText();
+            Class.forName("com.mysql.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
+            insert = con1.prepareStatement("INSERT INTO etudiant(nom,postnom,prenom,nationalite) VALUES(?,?,?,?)");
+            insert.setString(1, nom);
+            insert.setString(2, postnom);
+            insert.setString(3, prenom);
+            insert.setString(4, nationalite);
+            
+            insert.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Enregistrement effectué");
+            table_update();
+            
+            txtnom.setText("");
+            txtpostnom.setText("");
+            txtprenom.setText("");
+            txtnationalite.setText("");
+            txtnom.requestFocus();
+        }  catch (ClassNotFoundException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
