@@ -51,8 +51,8 @@ public class crud extends javax.swing.JFrame {
         txtprenom = new javax.swing.JTextField();
         txtnationalite = new javax.swing.JTextField();
         btnajouter = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnmodifier = new javax.swing.JButton();
+        btnsupprimer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -84,17 +84,17 @@ public class crud extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Modifier");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnmodifier.setText("Modifier");
+        btnmodifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnmodifierActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Supprimer");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnsupprimer.setText("Supprimer");
+        btnsupprimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnsupprimerActionPerformed(evt);
             }
         });
 
@@ -122,9 +122,9 @@ public class crud extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(btnajouter)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnmodifier)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addComponent(btnsupprimer)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,8 +149,8 @@ public class crud extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnajouter)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnmodifier)
+                    .addComponent(btnsupprimer))
                 .addGap(43, 43, 43))
         );
 
@@ -289,7 +289,7 @@ public class crud extends javax.swing.JFrame {
         txtnationalite.setText(Df.getValueAt(selectedItem, 4).toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnmodifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodifierActionPerformed
         DefaultTableModel Df = (DefaultTableModel)jTable1.getModel();
         int selectedItem = jTable1.getSelectedRow();
         try {
@@ -323,9 +323,9 @@ public class crud extends javax.swing.JFrame {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnmodifierActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnsupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsupprimerActionPerformed
         DefaultTableModel Df = (DefaultTableModel)jTable1.getModel();
         int selectedItem = jTable1.getSelectedRow();
         try {
@@ -341,6 +341,12 @@ public class crud extends javax.swing.JFrame {
             insert.executeUpdate();
             JOptionPane.showMessageDialog(this,"Suppression effectuée");
             table_update();
+            
+            txtnom.setText("");
+            txtpostnom.setText("");
+            txtprenom.setText("");
+            txtnationalite.setText("");
+            txtnom.requestFocus();
             }
             
             
@@ -349,7 +355,7 @@ public class crud extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnsupprimerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,8 +394,8 @@ public class crud extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnajouter;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnmodifier;
+    private javax.swing.JButton btnsupprimer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
