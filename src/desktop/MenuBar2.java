@@ -35,6 +35,7 @@ public class MenuBar2 extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         j1 = new javax.swing.JPanel();
         j2 = new javax.swing.JPanel();
+        j3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,10 +109,23 @@ public class MenuBar2 extends javax.swing.JFrame {
         j2.setLayout(j2Layout);
         j2Layout.setHorizontalGroup(
             j2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 760, Short.MAX_VALUE)
+            .addGap(0, 783, Short.MAX_VALUE)
         );
         j2Layout.setVerticalGroup(
             j2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        j3.setBackground(new java.awt.Color(0, 102, 153));
+
+        javax.swing.GroupLayout j3Layout = new javax.swing.GroupLayout(j3);
+        j3.setLayout(j3Layout);
+        j3Layout.setHorizontalGroup(
+            j3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 771, Short.MAX_VALUE)
+        );
+        j3Layout.setVerticalGroup(
+            j3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 630, Short.MAX_VALUE)
         );
 
@@ -119,11 +133,19 @@ public class MenuBar2 extends javax.swing.JFrame {
         j1.setLayout(j1Layout);
         j1Layout.setHorizontalGroup(
             j1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(j2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(j1Layout.createSequentialGroup()
+                .addComponent(j2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
+            .addGroup(j1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(j1Layout.createSequentialGroup()
+                    .addComponent(j3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 15, Short.MAX_VALUE)))
         );
         j1Layout.setVerticalGroup(
             j1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(j2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(j1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(j3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(j1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 760, 630));
@@ -132,12 +154,12 @@ public class MenuBar2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        j1.setVisible(true);
+        j3.setVisible(true);
         j2.setVisible(false);
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        j1.setVisible(false);
+        j3.setVisible(false);
         j2.setVisible(true);
     }//GEN-LAST:event_jPanel5MouseClicked
 
@@ -179,6 +201,7 @@ public class MenuBar2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel j1;
     private javax.swing.JPanel j2;
+    private javax.swing.JPanel j3;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
