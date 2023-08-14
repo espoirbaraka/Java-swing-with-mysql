@@ -18,7 +18,7 @@ public class MenuBar2 extends javax.swing.JFrame {
      */
     public MenuBar2() {
         initComponents();
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
