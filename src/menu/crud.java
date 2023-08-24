@@ -117,9 +117,19 @@ public class crud extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Masculin");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Feminin");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -314,7 +324,7 @@ public class crud extends javax.swing.JFrame {
             con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
             insert = con1.prepareStatement("INSERT INTO etudiant(nom,postnom,prenom,nationalite,age) VALUES(?,?,?,?,?)");
             insert.setString(1, Tpays.getSelectedItem().toString());
-            insert.setString(2, postnom);
+            insert.setString(2, genre);
             insert.setString(3, prenom);
             insert.setString(4, nationalite);
             insert.setString(5, "3");
@@ -421,6 +431,15 @@ public class crud extends javax.swing.JFrame {
     private void TpaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TpaysActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TpaysActionPerformed
+
+    String genre;
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        genre="Masculin";
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        genre="Feminin";
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments
