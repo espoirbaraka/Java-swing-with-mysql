@@ -31,6 +31,8 @@ public class crud extends javax.swing.JFrame {
         table_update();
         combobox();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +62,8 @@ public class crud extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -223,6 +227,10 @@ public class crud extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jRadioButton3.setText("jRadioButton3");
+
+        jRadioButton4.setText("jRadioButton4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -235,7 +243,12 @@ public class crud extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButton3)
+                        .addGap(78, 78, 78)
+                        .addComponent(jRadioButton4)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -247,7 +260,11 @@ public class crud extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(56, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jRadioButton4))
+                        .addContainerGap())
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -273,7 +290,9 @@ public class crud extends javax.swing.JFrame {
             
             while(rs.next()){
                 String nom = rs.getString("nom").toString();
-                Tpays.addItem(nom);
+                int id = Integer.parseInt(rs.getString("id"));
+                Tpays.addItem(String.valueOf(nom));
+               
             }
             
         }  catch (ClassNotFoundException ex) {
@@ -282,11 +301,31 @@ public class crud extends javax.swing.JFrame {
             Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
-    private void table_update(){
-        int c;
+    
+    public int returncombo(String sql){
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
+            select = con1.prepareStatement(sql);
+            ResultSet rs=select.executeQuery();
+            
+            while(rs.next()){
+                return rs.getInt(1);
+            }
+            
+        }  catch (ClassNotFoundException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(crud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    private void table_update(){
+        System.out.println(Login2.username);
+        int c;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://"+Login2.server+"/java",Login2.username,Login2.password);
             select = con1.prepareStatement("SELECT * FROM etudiant");
             ResultSet rs=select.executeQuery();
             ResultSetMetaData Rss = rs.getMetaData();
@@ -318,16 +357,20 @@ public class crud extends javax.swing.JFrame {
         String postnom = txtpostnom.getText();
         String prenom = txtprenom.getText();
         String nationalite = txtnationalite.getText();
+        String pays=Tpays.getSelectedItem().toString();
         
+        
+        String query="SELECT * FROM etudiant WHERE nom='"+pays+"'";
+        int idd=returncombo(query);
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con1 = DriverManager.getConnection("jdbc:mysql://localhost/java","root","");
             insert = con1.prepareStatement("INSERT INTO etudiant(nom,postnom,prenom,nationalite,age) VALUES(?,?,?,?,?)");
-            insert.setString(1, Tpays.getSelectedItem().toString());
-            insert.setString(2, genre);
+            insert.setString(1, nom);
+            insert.setString(2, postnom);
             insert.setString(3, prenom);
             insert.setString(4, nationalite);
-            insert.setString(5, "3");
+            insert.setString(5, String.valueOf(idd));
             
             insert.executeUpdate();
             JOptionPane.showMessageDialog(this,"Enregistrement effectué");
@@ -490,6 +533,8 @@ public class crud extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtnationalite;
